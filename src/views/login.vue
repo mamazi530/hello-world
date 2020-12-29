@@ -1,21 +1,23 @@
 <template>
-   
   <div>
-    <img alt="Vue logo" src="../assets/login3.gif">
+    <img alt="Vue logo" src="../assets/login3.gif" />
     <el-form
       ref="form"
       :model="form"
       :rules="loginRules"
       label-width="80px"
       class="login-box"
-	   
     >
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="用户名:" prop="name">
         <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
       </el-form-item>
-      <el-form-item label="密码:" prop="password" >
-        <el-input v-model="form.password" placeholder="请输入密码" show-password></el-input>
+      <el-form-item label="密码:" prop="password">
+        <el-input
+          v-model="form.password"
+          placeholder="请输入密码"
+          show-password
+        ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('form')">登录</el-button>
@@ -53,18 +55,18 @@ export default {
   },
   methods: {
     onSubmit(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$router.push('/home');
-          } else {
-            this.$message.error('用户名或密码错误')
-            return false;
-          }
-        });
-      },
-      cancel(formName) {
-        this.$refs[formName].resetFields();
-      }
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$router.push("/home");
+        } else {
+          this.$message.error("用户名或密码错误");
+          return false;
+        }
+      });
+    },
+    cancel(formName) {
+      this.$refs[formName].resetFields();
+    },
   },
 };
 </script>
