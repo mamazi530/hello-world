@@ -1,8 +1,8 @@
 <template>
    
   <div>
-    <img alt="Vue logo" src="../assets/login3.gif">
-    <el-form
+    <!-- <img alt="Vue logo" src="../assets/login3.gif" style="margin: 0 auto"> -->
+      <el-form
       ref="form"
       :model="form"
       :rules="loginRules"
@@ -10,6 +10,7 @@
       class="login-box"
 	   
     >
+    <el-image :src="require('../assets/login3.gif')"></el-image>
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="用户名:" prop="name">
         <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
@@ -17,7 +18,7 @@
       <el-form-item label="密码:" prop="password" >
         <el-input v-model="form.password" placeholder="请输入密码" show-password></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="login-btn">
         <el-button type="primary" @click="onSubmit('form')">登录</el-button>
         <el-button type="primary" @click="cancel('form')">取消</el-button>
       </el-form-item>
@@ -34,6 +35,7 @@ export default {
         name: "",
         password: "",
       },
+      logo:"../assets/login3.gif",
       loginRules: {
         name: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
@@ -52,18 +54,26 @@ export default {
     };
   },
   methods: {
-    onSubmit(formName) {
-        this.$refs[formName].validate((valid) => {
+    onSubmit(form) {
+        this.$refs[form].validate((valid) => {
           if (valid) {
             this.$router.push('/home');
+            this.$message({
+                showClose: true,
+                message: '登录成功',
+                type: 'success'
+                });
           } else {
-            this.$message.error('用户名或密码错误')
-            return false;
+            this.$message({
+                showClose: true,
+                message: '用户名或密码错误',
+                type: 'error'
+                });
           }
         });
       },
-      cancel(formName) {
-        this.$refs[formName].resetFields();
+      cancel(form) {
+        this.$refs[form].resetFields();
       }
   },
 };
@@ -86,6 +96,9 @@ export default {
 }
 .login-title {
   /* 文本居中 */
+  text-align: center;
+}
+.login-btn{
   text-align: center;
 }
 </style>

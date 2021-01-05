@@ -1,23 +1,26 @@
-import { Main } from 'element-ui'
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '../views/login.vue'
-import home from '../views/home.vue'
- 
+
 
 Vue.use(Router)
 
-export default new Router({
-	routes:[
+const routes = [
 	{
-		path:'/login',
-		name:'login',
-		component:login
+		path: '/',
+		name: 'Login',
+		component: () => import('../views/login.vue')
 	},
 	{
-		path:'/home',
-		name:'home',
-		component:home 
-	}
+		path: '/home',
+		name: 'Home',
+		component: () => import('../views/home.vue')
+	},
 ]
+
+const router = new Router({
+	mode: 'history',
+	base: process.env.BASE_URL,
+	routes
 })
+
+export default router
