@@ -28,9 +28,36 @@
       <el-container>
         <el-aside class="aside">
           <!-- 侧边栏导航  -->
-          aside
+        <!-- unique-opened只展开一个 -->
+        <!-- router开启路由模式 -->
+        <el-menu :unique-opened="true" :router="true" class="menu"
+          background-color="#b3c0d1"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+          >
+          <el-submenu :index="' '+item1.order" v-for="(item1) in menuData" :key="item1.path">
+            <!--表示可以展开的一组 -->
+            <template slot="title" >
+              <!--图标 -->
+              <i class="el-icon-s-grid"></i>
+              <!--文字 -->
+              <span>{{item1.name}}</span>
+            </template>
+            <el-menu-item
+              class="menuItem"
+              
+              v-for="(item2) in item1.children"
+              :key="item2.path"
+              :index="item2.path"
+            >
+              <i class="el-icon-document"></i>
+              <!--图标 -->
+              <span>{{item2.name}}</span>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
         </el-aside>
-        <el-main class="main">Main</el-main>
+        <el-main class="main"><router-view></router-view></el-main>
       </el-container>
     </el-container>
   </div>
@@ -50,6 +77,49 @@ export default {
         this.$router.push({ path: "/" });
       });
     }
+  },
+  data() {
+    return {
+      menuData: [
+        {
+          name: "Inbound",
+          order: "1",
+          path:'inbound',
+          children: [
+            {
+              path: "componyinfomanage",
+              name: "企业信息",
+            },
+          ],
+        },
+        {
+          path: "Outbound",
+          name: "outbound",
+          order: "2",
+          children: [
+            {
+              path: "postinfomange",
+              name: "岗位信息",
+            },
+          ],
+        },
+        {
+          path: "Check",
+          name: "check",
+          order: "3",
+          children: [
+            {
+              path: "getLastStatus",
+              name: "getLastStatus",
+            },
+            {
+              path: "getStatusByID",
+              name: "getStatusByID",
+            },
+          ],
+        }
+      ],
+    };
   }
 };
 </script>
@@ -70,7 +140,7 @@ export default {
   font-size: 15px;
 }
 .header {
-  background: #b3c0d1;
+  background: #5aa0fa;
   color: #fff;
 }
 .aside {

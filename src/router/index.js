@@ -13,7 +13,19 @@ const routes = [
 	{
 		path: '/home',
 		name: 'Home',
-		component: () => import('../views/home.vue')
+		component: () => import('../views/home.vue'),
+		children:[
+			{
+			  path: '/getLastStatus',
+			  name: 'getLastStatus',
+			  component: () => import('../views/check/getLastStatus.vue'),
+			},
+			{
+			  path: '/getStatusByID',
+			  name: 'getStatusByID',
+			  component: () => import('../views/check/getStatusByID.vue'),
+			}
+		]		
 	},
 ]
 
