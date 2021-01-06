@@ -33,7 +33,7 @@
       </el-col>
     </el-row>
 
-    <el-row class="bg">
+    <el-row class="bg" v-if="false">
       <el-col :span="24">
         <el-tabs v-model="activeName">
           <el-tab-pane label="params" name="params">
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import {showXml} from "../../utils/showXML"
 export default {
   name: "getLastStatus",
   data() {
@@ -107,7 +108,7 @@ export default {
       raw: "",
       resp: "",
       request_url:
-        "https://dnsosoapub-de4.opc.oracleoutsourcing.com/GlobalCmnParts/getStatusTbl",
+        process.env.VUE_APP_BASE_API + "/GlobalCmnParts/getStatusTbl",
     };
   },
   methods: {
@@ -122,26 +123,27 @@ export default {
       this.sendRequest();
     },
     sendRequest() {
-      var axios = require("axios");
-
       var config = {
         method: this.request_method,
-        url: this.request_url ,
+        url: this.request_url,
         headers: {
           Authorization: "Basic b2hzY3VzdGFkbWluOmhHTjRfa2hfZA==",
         },
       };
 
-      axios(config)
+      var that = this;
+      this.axios(config)
         .then(function (response) {
-           this.resp= this.response.data[0];
-           console.log(JSON.stringify(response.data));
+          that.resp = showXml(response.data);
+          console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
-         this.resp = "服务器异常，请联系管理员解决, "+this.response.msg
+          that.resp = "服务器异常，请联系管理员解决, " + error;
           console.log(error);
         });
     },
+
+    
   },
 };
 </script>

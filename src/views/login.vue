@@ -39,7 +39,7 @@ export default {
       logo: "../assets/login3.gif",
       loginRules: {
         name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
+          { required: true, message: "请输入用户名称", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
         ],
         password: [
@@ -58,6 +58,7 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          
           this.$router.push("/home");
           this.$message({
             showClose: true,
