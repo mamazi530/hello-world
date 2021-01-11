@@ -127,7 +127,7 @@ export default {
         method: this.request_method,
         url: this.request_url,
         headers: {
-          Authorization: "Basic b2hzY3VzdGFkbWluOmhHTjRfa2hfZA==",
+          Authorization: "Basic xxxxx",
         },
       };
 

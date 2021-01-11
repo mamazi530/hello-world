@@ -31,7 +31,7 @@
         <!-- unique-opened只展开一个 -->
         <!-- router开启路由模式 -->
         <el-menu :unique-opened="true" :router="true" class="menu"
-          background-color="#b3c0d1"
+          background-color="#0099CC"
           text-color="#fff"
           active-text-color="#ffd04b"
           >
@@ -140,11 +140,11 @@ export default {
   font-size: 15px;
 }
 .header {
-  background: #5aa0fa;
+  background: #6699cc;
   color: #fff;
 }
 .aside {
-  background: #8a898d;
+  background: #6699cc;
   color: #fff;
   /* height: 100%; */
 }
