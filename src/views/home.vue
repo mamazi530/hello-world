@@ -117,6 +117,17 @@ export default {
               name: "getStatusByID",
             },
           ],
+        },
+        {
+          path: "Table",
+          name: "table",
+          order: "4",
+          children: [
+            {
+              path: "cnHCMmst",
+              name: "cnHCMmst"
+            }
+          ],
         }
       ],
     };

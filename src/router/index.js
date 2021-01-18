@@ -17,14 +17,19 @@ const routes = [
 		children:[
 			{
 			  path: '/getLastStatus',
-			  name: 'getLastStatus',
+			  name: 'getLastStatus', 
 			  component: () => import('../views/check/getLastStatus.vue'),
 			},
 			{
 			  path: '/getStatusByID',
 			  name: 'getStatusByID',
 			  component: () => import('../views/check/getStatusByID.vue'),
-			}
+			},
+			{
+				path: '/cnHCMmst',
+				name: 'cnHCMmst',
+				component: () => import('../views/table/hcm_mst.vue'),
+			  }
 		]		
 	},
 ]
