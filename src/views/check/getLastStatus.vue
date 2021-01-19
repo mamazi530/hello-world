@@ -127,7 +127,7 @@ export default {
         method: this.request_method,
         url: this.request_url,
         headers: {
-          Authorization: "Basic xxxxx",
+          Authorization: process.env.VUE_APP_API_AUTH,
         },
       };
 

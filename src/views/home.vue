@@ -103,10 +103,21 @@ export default {
             },
           ],
         },
+         {
+          path: "Table",
+          name: "table",
+          order: "3",
+          children: [
+            {
+              path: "cnHCMmst",
+              name: "cnHCMmst"
+            }
+          ],
+        },
         {
           path: "Check",
           name: "check",
-          order: "3",
+          order: "4",
           children: [
             {
               path: "getLastStatus",
@@ -118,17 +129,7 @@ export default {
             },
           ],
         },
-        {
-          path: "Table",
-          name: "table",
-          order: "4",
-          children: [
-            {
-              path: "cnHCMmst",
-              name: "cnHCMmst"
-            }
-          ],
-        }
+       
       ],
     };
   }
