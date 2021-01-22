@@ -1,15 +1,28 @@
 <template>
   <div>
-    <service></service>
+    <service :axiosConfig="axiosConfig"></service>
   </div>
 </template>
 
 <script>
-import service from "../../components/service.vue"
+import service from "../../components/service.vue";
 export default {
   components: { service },
-  name: "getLastStatus"
-  
+  name: "getLastStatus",
+  data() {
+    return {
+      axiosConfig: {
+        method: "GET",
+        endPoint: "/GlobalCmnParts/getStatusTbl",
+        hasBody: false,
+        headers: {
+            Authorization: process.env.VUE_APP_API_AUTH
+            
+          },
+
+      },
+    };
+  },
 };
 </script>
 
