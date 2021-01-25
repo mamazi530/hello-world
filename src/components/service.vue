@@ -3,13 +3,13 @@
     <el-row>
       <el-col :span="3">
         <div class="grid-content bg">
-          <el-select v-model="axConfig.request_method">
+          <el-select v-model="axConfig.request_method" disabled>
             <el-option
               v-for="item in methods"
               :key="item.value"
               :value="item.value"
               :label="item.label"
-              disabled
+              
             ></el-option>
           </el-select>
         </div>
@@ -23,9 +23,7 @@
           ></el-input>
         </div>
       </el-col>
-      <el-col :span="2">
-        <div class="grid-content"></div>
-      </el-col>
+       
       <el-col :span="2">
         <div class="grid-content">
           <el-button type="success" round @click="send()">Send</el-button>
@@ -33,12 +31,14 @@
       </el-col>
     </el-row>
 
-    <el-row class="bg" v-if="axConfig.hasBody">
+     
+
+    <el-row class="bg" v-if="axConfig.hasBody">Body
       <el-col :span="24">
         <el-input
           type="textarea"
           placeholder="请输入请求内容"
-          :autosize="{ minRows: 8, maxRows: 8 }"
+          :autosize="{ minRows: 8, maxRows: 14 }"
           v-model="axConfig.body"
           disabled
         ></el-input>
@@ -49,8 +49,8 @@
       <div class="grid-content"></div>
     </el-row>
     <el-row>
-      <el-col :span="18">
-        <textarea cols="110" rows="30" disabled v-model="resp"></textarea>
+      <el-col :span="18">Response
+        <textarea cols="112" rows="30" disabled v-model="resp"></textarea>
       </el-col>
     </el-row>
   </div>
@@ -114,7 +114,22 @@ export default {
     },
 
     
+
+    
   },
+  watch:{
+      axiosConfig:{
+        handler(newVal,oldVal){
+         
+
+          this.axConfig.body = newVal.body;
+          //this.init
+
+        },
+        deep: true
+        //immediate:true
+      }
+    }
   
 };
 </script>

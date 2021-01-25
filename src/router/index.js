@@ -14,29 +14,29 @@ const routes = [
 		path: '/home',
 		name: 'Home',
 		component: () => import('../views/home.vue'),
-		children:[
+		children: [
 			{
-			  path: '/getLastStatus',
-			  name: 'getLastStatus', 
-			  component: () => import('../views/check/getLastStatus.vue'),
+				path: '/getLastStatus',
+				name: 'getLastStatus',
+				component: () => import('../views/check/getLastStatus.vue'),
 			},
 			{
-			  path: '/getStatusByID',
-			  name: 'getStatusByID',
-			  component: () => import('../views/check/getStatusByID.vue'),
+				path: '/getStatusByID',
+				name: 'getStatusByID',
+				component: () => import('../views/check/getStatusByID.vue'),
 			},
 			{
 				path: '/cnHCMmst',
 				name: 'cnHCMmst',
 				component: () => import('../views/table/hcm_mst.vue'),
-			  }
-		]		
+			}
+		]
 	},
 ]
 
 const router = new Router({
 	mode: 'history',
-	
+
 	routes
 })
 

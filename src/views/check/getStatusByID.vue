@@ -1,9 +1,10 @@
 <template>
   <div>
-     <el-input v-model="statusID" placeholder="请输入STATUS_IFO_ID" >
+     <el-input v-model="statusID" placeholder="请输入STATUS_IFO_ID" @input="input">
         <template slot="prepend">Status Info ID</template>
      </el-input>
-    <service :axiosConfig="axiosConfig" style="margin-top: 15px;"></service>
+     <!-- <el-input type="textarea" v-model="statusID" disabled></el-input> -->
+    <service :axiosConfig="axiosConfig"  style="margin-top: 15px;"></service>
   </div>
 </template>
 
@@ -22,12 +23,22 @@ export default {
             'Content-Type': 'application/xml'
           },
         hasBody: true,
-        body:'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:glob="http://xmlns.denso.com/Gfastpm/GlobalCmnFunction/">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <glob:getStatus_req>\n         <glob:statusInfoId>'+this.statusID+'</glob:statusInfoId>\n      </glob:getStatus_req>\n   </soapenv:Body>\n</soapenv:Envelope>'
+        body: this.bodyPre+this.statusID+this.bodySfu
         
       },
-      statusID: ""
+      statusID: "",
+      bodyPre: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:glob="http://xmlns.denso.com/Gfastpm/GlobalCmnFunction/">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <glob:getStatus_req>\n         <glob:statusInfoId>',
+      bodySfu: '</glob:statusInfoId>\n      </glob:getStatus_req>\n   </soapenv:Body>\n</soapenv:Envelope>'
     };
   },
+  mounted(){
+        this.axiosConfig.body = this.bodyPre + this.statusID + this.bodySfu;
+  },
+  methods: {
+    input(){
+      this.axiosConfig.body = this.bodyPre + this.statusID + this.bodySfu;
+    }
+  }
 };
 </script>
 
