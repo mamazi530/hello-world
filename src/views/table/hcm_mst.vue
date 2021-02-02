@@ -121,13 +121,24 @@ export default {
     },
     query() {
       var that = this;
-      var config = that.axiosConfig(
-        "POST",
-        "/ChinaIntegration/ChinaUtilsServicePS/DBCheck",
-        JSON.stringify({ packageName: "cn_hcm_query" })
-      );
+      var config = {
+        method: "post",
+        url: process.env.VUE_APP_BASE_API + "/v1/callout",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        data: JSON.stringify({
+          method: "POST",
+          endPoint: "/ChinaIntegration/ChinaUtilsServicePS/DBCheck",
+          env: "DEV",
+          contentType:"application/json",
+          body : "{\"packageName\" :\"cn_hcm_query\"}"
+        }),
+      };
       this.axios(config)
         .then(function (response) {
+          console.log(response)
           that.tableData = JSON.parse(response.data.outMsg);
         })
         .catch(function (error) {
@@ -149,10 +160,7 @@ export default {
       return {
         method: method,
         url: process.env.VUE_APP_BASE_API + endpoint,
-        headers: {
-          Authorization: process.env.VUE_APP_API_AUTH,
-          "Content-Type": "application/json",
-        },
+        
         data: data,
       };
     },

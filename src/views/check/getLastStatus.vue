@@ -15,10 +15,7 @@ export default {
         method: "GET",
         endPoint: "/GlobalCmnParts/getStatusTbl",
         hasBody: false,
-        headers: {
-            Authorization: process.env.VUE_APP_API_AUTH
-            
-          },
+      
 
       },
     };

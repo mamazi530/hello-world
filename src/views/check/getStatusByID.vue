@@ -18,10 +18,7 @@ export default {
       axiosConfig: {
         method: "POST",
         endPoint: "/GlobalCmnFunction/Execjob/Proxy/SubmitEssjobPS",
-        headers: {
-            Authorization: process.env.VUE_APP_API_AUTH,
-            'Content-Type': 'application/xml'
-          },
+       
         hasBody: true,
         body: this.bodyPre+this.statusID+this.bodySfu
         
