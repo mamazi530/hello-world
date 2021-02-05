@@ -1,6 +1,6 @@
 <template>
   <div>
-     <el-input v-model="statusID" placeholder="请输入STATUS_IFO_ID" @input="input">
+     <el-input v-model="statusID" placeholder="请输入STATUS_INFO_ID" @input="input">
         <template slot="prepend">Status Info ID</template>
      </el-input>
      <!-- <el-input type="textarea" v-model="statusID" disabled></el-input> -->
@@ -13,12 +13,14 @@ import service from "../../components/service.vue";
 export default {
   components: { service },
   name: "getStatusByID",
+  props: ['env'],
   data() {
     return {
       axiosConfig: {
         method: "POST",
         endPoint: "/GlobalCmnFunction/Execjob/Proxy/SubmitEssjobPS",
-       
+        env: this.env,
+        contentType: "application/xml",
         hasBody: true,
         body: this.bodyPre+this.statusID+this.bodySfu
         
@@ -35,7 +37,18 @@ export default {
     input(){
       this.axiosConfig.body = this.bodyPre + this.statusID + this.bodySfu;
     }
-  }
+  },
+  props: ['env'],
+  watch: {
+    env: {
+      handler(newVal) {
+        this.axiosConfig.env = newVal;
+        //this.init
+      },
+      deep: true,
+      //immediate:true
+    },
+  },
 };
 </script>
 

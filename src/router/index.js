@@ -16,6 +16,11 @@ const routes = [
 		component: () => import('../views/home.vue'),
 		children: [
 			{
+				path: '/customer_mst',
+				name: 'customer_mst',
+				component: () => import('../views/essjob/customer_mst.vue'),
+			},
+			{
 				path: '/getLastStatus',
 				name: 'getLastStatus',
 				component: () => import('../views/check/getLastStatus.vue'),

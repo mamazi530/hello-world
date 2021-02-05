@@ -44,7 +44,7 @@
       </div>
     </el-dialog>
 
-    <el-table style="width: 100%" border :data="tableData">
+    <el-table style="width: 100%" border :data="tableData" v-loading="loading">
       <template v-for="(item, index) in tableHead">
         <el-table-column
           :prop="item.column_name"
@@ -103,6 +103,7 @@ export default {
         is_negative_num: null,
       },
       dialogTitle: "",
+      loading: false
     };
   },
   methods: {
@@ -121,12 +122,11 @@ export default {
     },
     query() {
       var that = this;
+      that.loading = true
       var config = {
         method: "post",
         url: process.env.VUE_APP_BASE_API + "/v1/callout",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        
 
         data: JSON.stringify({
           method: "POST",
@@ -139,7 +139,8 @@ export default {
       this.axios(config)
         .then(function (response) {
           console.log(response)
-          that.tableData = JSON.parse(response.data.outMsg);
+          that.tableData = JSON.parse(response.data.outMsg)
+          that.loading = false
         })
         .catch(function (error) {
           console.log(error);
@@ -148,6 +149,7 @@ export default {
             message: "获取表数据错误，请联系管理员",
             type: "error",
           });
+          that.loading = false
         });
     },
 

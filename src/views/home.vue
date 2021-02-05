@@ -14,12 +14,19 @@
             </div>
           </el-col>
           <el-col :span="8" class="selectop">
-            <el-select v-model="value" placeholder="请选择" style="margin-right: 15px">
+            <el-select
+              v-model="value"
+              placeholder="请选择"
+              style="margin-right: 15px"
+              @change="change"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
+                :disabled="item.disabled"
+                
               >
               </el-option>
             </el-select>
@@ -74,7 +81,7 @@
             </el-submenu>
           </el-menu>
         </el-aside>
-        <el-main class="main"><router-view></router-view></el-main>
+        <el-main class="main"><router-view :env="value"></router-view></el-main>
       </el-container>
     </el-container>
   </div>
@@ -104,8 +111,8 @@ export default {
           path: "essjob",
           children: [
             {
-              path: "componyinfomanage",
-              name: "企业信息",
+              path: "customer_mst",
+              name: "Customer_MST",
             },
           ],
         },
@@ -159,18 +166,32 @@ export default {
         },
       ],
 
-      options: [{
-          value: 'DEV',
-          label: 'DEV开发环境'
-        }, {
-          value: 'UAT',
-          label: 'UAT测试环境'
-        }, {
-          value: 'PROD',
-          label: 'Prod生产环境'
-        }],
-        value: 'UAT'
+      options: [
+        {
+          value: "DEV",
+          label: "DEV开发环境",
+        },
+        {
+          value: "UAT",
+          label: "UAT测试环境",
+        },
+        {
+          value: "PROD",
+          label: "Prod生产环境",
+          disabled: true
+        },
+      ],
+      value: "UAT",
     };
+  },
+  methods:{
+    change(selVal){
+      
+        this.value = selVal
+      }
+  },
+  mounted(){
+        this.value = "UAT"
   },
 };
 </script>
@@ -211,9 +232,9 @@ export default {
   line-height: 60px;
   text-align: right;
 }
-.selectop{
-  display:flex;
-  justify-content:center;/*主轴上居中*/
-  align-items:center;/*侧轴上居中*/
+.selectop {
+  display: flex;
+  justify-content: center; /*主轴上居中*/
+  align-items: center; /*侧轴上居中*/
 }
 </style>

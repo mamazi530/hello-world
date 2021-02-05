@@ -9,7 +9,6 @@
               :key="item.value"
               :value="item.value"
               :label="item.label"
-              
             ></el-option>
           </el-select>
         </div>
@@ -18,12 +17,12 @@
         <div class="grid-content bg">
           <el-input
             placeholder="输入请求URL"
-            v-model="axConfig.request_url"
+            v-model="axConfig.endPoint"
             disabled
           ></el-input>
         </div>
       </el-col>
-       
+
       <el-col :span="2">
         <div class="grid-content">
           <el-button type="success" round @click="send()">Send</el-button>
@@ -31,9 +30,8 @@
       </el-col>
     </el-row>
 
-     
-
-    <el-row class="bg" v-if="axConfig.hasBody">Body
+    <el-row class="bg" v-if="axConfig.hasBody"
+      >Body
       <el-col :span="24">
         <el-input
           type="textarea"
@@ -49,7 +47,8 @@
       <div class="grid-content"></div>
     </el-row>
     <el-row>
-      <el-col :span="18">Response
+      <el-col :span="18"
+        >Response
         <textarea cols="112" rows="30" disabled v-model="resp"></textarea>
       </el-col>
     </el-row>
@@ -72,10 +71,11 @@ export default {
       axConfig: {
         request_method: this.axiosConfig.method,
         hasBody: this.axiosConfig.hasBody,
-
+        contentType: this.axiosConfig.contentType,
         body: this.axiosConfig.body,
-        request_url: process.env.VUE_APP_BASE_API + this.axiosConfig.endPoint,
+        endPoint: this.axiosConfig.endPoint,
         headers: this.axiosConfig.headers,
+        env: this.axiosConfig.env,
       },
     };
   },
@@ -88,21 +88,23 @@ export default {
     },
   },
   methods: {
-    
-
     //Send Btn send request via axios
     send() {
       this.resp = "等待服务器返回，请稍后";
+      
       var config = {
-        method: this.axConfig.request_method,
-        url: this.axConfig.request_url,
-        headers: this.axConfig.headers,
+        method: "post",
+        url: process.env.VUE_APP_BASE_API + "/v1/callout",
+
+        data: JSON.stringify({
+          method: this.axConfig.request_method,
+          endPoint: this.axConfig.endPoint,
+          env: this.axConfig.env,
+          contentType: this.axConfig.contentType,
+          body: this.axConfig.body,
+        }),
       };
-      console.log(this.axConfig.request_method);
-      if (this.axConfig.hasBody) {
-        config.data = this.axConfig.body;
-      }
-      console.log(config.data);
+
       var that = this;
       this.axios(config)
         .then(function (response) {
@@ -112,25 +114,18 @@ export default {
           that.resp = "服务器异常，请联系管理员解决, " + error;
         });
     },
-
-    
-
-    
   },
-  watch:{
-      axiosConfig:{
-        handler(newVal,oldVal){
-         
-
-          this.axConfig.body = newVal.body;
-          //this.init
-
-        },
-        deep: true
-        //immediate:true
-      }
-    }
-  
+  watch: {
+    axiosConfig: {
+      handler(newVal, oldVal) {
+        this.axConfig.body = newVal.body;
+        this.axConfig.env = newVal.env;
+        //this.init
+      },
+      deep: true,
+      //immediate:true
+    },
+  },
 };
 </script>
 

@@ -15,10 +15,25 @@ export default {
         method: "GET",
         endPoint: "/GlobalCmnParts/getStatusTbl",
         hasBody: false,
+        contentType: "application/json",
+        env: this.env
       
 
       },
     };
+  },
+
+
+  props: ['env'],
+  watch: {
+    env: {
+      handler(newVal) {
+        this.axiosConfig.env = newVal;
+        //this.init
+      },
+      deep: true,
+      //immediate:true
+    },
   },
 };
 </script>
